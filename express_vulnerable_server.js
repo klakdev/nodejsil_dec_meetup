@@ -5,6 +5,8 @@ const app = express();
 
 app.use((req, res) => {
     const { url } = req.query;
-    const cp = exec('curl ' + sanitized);
-    cp.stdout.pipe(req);
+    const cp = exec('curl ' + url);
+    cp.stdout.pipe(res);
 });
+
+app.listen(3000);
