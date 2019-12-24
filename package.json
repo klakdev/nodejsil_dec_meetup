@@ -1,0 +1,27 @@
+{
+  "name": "meetup",
+  "version": "1.0.0",
+  "description": "meet up examples from Node.js Israel december 2019 meetup",
+  "main": "express_secure_server.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klakdev/nodejsil_dec_meetup.git"
+  },
+  "keywords": [
+    "meetup",
+    "nodejsil"
+  ],
+  "author": "Yaki Klein",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/klakdev/nodejsil_dec_meetup/issues"
+  },
+  "homepage": "https://github.com/klakdev/nodejsil_dec_meetup#readme"
+}
