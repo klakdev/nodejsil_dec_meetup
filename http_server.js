@@ -7,16 +7,18 @@ server.on(function(req, res) {
     
     let data = '';
     
-    req.on('data', chunk) => {
+    req.on('data', chunk => {
         data += chunk;
-    }
+    });
     
     req.on('end', () => {
-        data = url.replace(NOT_ALLOWED_CHARECTERES, '');
+        data = url.replace(NOT_ALLOWED_CHARACTERS, '');
     });
     
     req.on('end', () => {
         const cp = exec('curl ' + data);
-        cp.stdout.pipe(req);
+        cp.stdout.pipe(res);
     });
-})
+});
+
+server.listen(3000);

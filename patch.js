@@ -1,16 +1,29 @@
 
-const taintedDataMap = new Map();
-const NOT_ALLOWED_CHARECTERES = /[^a-z/.:\s]/gmi;
+const express = require('express');
+const cp = require('child_process');
+
+/**
+ * A regex that describes the characters that will be
+ * removed from a string before calling a command
+ * @type {RegExp}
+ */
+const NOT_ALLOWED_CHARACTERS = /[^a-z/.:\s]/gmi;
 const TAINTED = true;
+
+/**
+ * Data that is tainted will be stored in this map
+ * @type {Map<string, boolean>}
+ */
+const taintedDataMap = new Map();
 
 function patchReplace() {
     const replace = String.prototype.replace;
     String.prototype.replace = function (substr, replacement) {
-        const validSanitaizer =
-            String(NOT_ALLOWED_CHARECTERES) === String(substr) &&
+        const validSanitizer =
+            String(NOT_ALLOWED_CHARACTERS) === String(substr) &&
             replacement === '';
 
-        if (validSanitaizer) {
+        if (validSanitizer) {
             taintedDataMap.delete(this.valueOf());
         }
 
@@ -29,7 +42,7 @@ function patchSource() {
             }
 
             return fn.call(this, req, res, next);
-        }
+        };
 
         return use.call(this, path, _fn);
     }
@@ -52,9 +65,7 @@ function patchConcat() {
 }
 
 function patchSink(){
-    const cp = require('child_process');
     const exec = cp.exec;
-    
     cp.exec = function(command) {
         if(taintedDataMap.has(command)) {
             console.error('vulnerability at cp.exec', command);
