@@ -4,7 +4,7 @@
   "description": "meet up examples from Node.js Israel december 2019 meetup",
   "main": "express_secure_server.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.3"
   },
   "devDependencies": {},
   "scripts": {
